@@ -3,11 +3,28 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 
+menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
+
+
+class MyClass:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
 
 def index(request): # HttpRequest
     # t = render_to_string('women/index.html')
     # return HttpResponse(t)
-    return render(request, 'women/index.html')
+    data = {
+        'title': 'Главная страница',
+        'menu': menu,
+        'float': 28.56,
+        'lst': [1, 2, 'abc', True],
+        'set': {1, 2, 3, 2, 5},
+        'dict': {'key1': 'value1', 'key2': 'value2'},
+        'obj': MyClass(10, 20),
+    }
+    return render(request, 'women/index.html', context=data)
 
 
 def categories(request, cat_id):
@@ -33,4 +50,8 @@ def page_not_found(request, exception):
 
 
 def about(request):
-    return render(request, 'women/about.html')
+    data = {
+        'title': 'О сайте',
+        'menu': menu,
+    }
+    return render(request, 'women/about.html', context=data)
